@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heejae Bae — Design Researcher, KAIST</title>
+<meta name="description" content="Heejae Bae is a Ph.D. candidate in Industrial Design at KAIST, studying how people make meaning with interactive technology.">
+<meta property="og:title" content="Heejae Bae — Design Researcher, KAIST">
+<meta property="og:description" content="Ph.D. candidate in Industrial Design at KAIST. Narrative identity, memorialization, and everyday encounters with AI.">
+<meta property="og:type" content="profile">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E7E8E2'/%3E%3Crect x='5' y='13' width='14' height='6' rx='1' fill='%2317201C'/%3E%3Crect x='21' y='13' width='6' height='6' rx='1' fill='%232743D8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E7E8E2;
+  --paper-2:#EFF0EB;
+  --ink:#17201C;
+  --ink-70:#4A544E;
+  --ink-45:#7C857E;
+  --rule:#CBCEC5;
+  --live:#2743D8;
+  --past:#8B938A;
+  --measure:74ch;
+  --pad:clamp(1.25rem,5vw,4.5rem);
+  --display:"Archivo",system-ui,sans-serif;
+  --body:"Newsreader","Apple SD Gothic Neo","Malgun Gothic",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:1.0625rem;line-height:1.55;
+  font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 var(--pad)}
+a{color:inherit}
+::selection{background:var(--live);color:var(--paper)}
+:focus-visible{outline:2px solid var(--live);outline-offset:3px;border-radius:2px}
+
+/* ---------- masthead ---------- */
+.masthead{padding:clamp(3rem,9vh,6rem) 0 0}
+.name{
+  font-family:var(--display);
+  font-variation-settings:"wdth" 118,"wght" 620;
+  font-size:clamp(3rem,13.5vw,9.5rem);
+  line-height:.86;letter-spacing:-.035em;margin:0;
+  text-transform:uppercase;
+}
+.name-ko{display:none}
+.masthead-meta{
+  display:flex;flex-wrap:wrap;gap:.9rem 2.5rem;
+  align-items:flex-end;justify-content:space-between;
+  margin-top:1.6rem;padding-top:1.1rem;border-top:1px solid var(--rule);
+  font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;
+  color:var(--ink-70);
+}
+.meta-lines{display:grid;gap:.35rem;text-transform:uppercase}
+.meta-email{
+  text-decoration:none;color:var(--ink);
+  border-bottom:1px solid var(--rule);padding-bottom:1px;
+}
+.meta-email:hover{color:var(--live);border-bottom-color:var(--live)}
+.masthead-links{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem}
+.masthead-links a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+.masthead-links a:hover{color:var(--live);border-bottom-color:var(--live)}
+
+/* ---------- timeline (signature) ---------- */
+.tl{margin:clamp(2.5rem,7vh,4.5rem) 0 0;padding-top:1.6rem;border-top:1px solid var(--rule)}
+.tl-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem 1.5rem;align-items:baseline}
+.eyebrow{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-45);margin:0;
+}
+.tl-hint{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--ink-45);margin:0}
+.tl-chart{margin-top:1.9rem;position:relative}
+.tl-axis{position:relative;height:1.1rem;margin-bottom:.5rem}
+.tl-year{
+  position:absolute;top:0;font-family:var(--mono);font-size:.7rem;
+  color:var(--ink-45);transform:translateX(-1px);letter-spacing:.04em;
+}
+.tl-grid-lines{position:absolute;inset:1.35rem 0 0;pointer-events:none;z-index:0}
+.tl-vline{position:absolute;top:0;bottom:0;width:1px;background:var(--rule);opacity:.75}
+.tl-today{position:absolute;top:0;bottom:0;width:1px;background:var(--live);opacity:.45}
+.tl-today::after{
+  content:"";position:absolute;top:-4px;left:-2.5px;
+  width:6px;height:6px;border-radius:50%;background:var(--live);
+}
+.tl-body{position:relative;z-index:1}
+.tl-row{
+  display:grid;grid-template-columns:8.5rem 1fr;gap:0 1.25rem;
+  align-items:start;padding:.55rem 0;
+}
+.tl-row + .tl-row{border-top:1px dotted var(--rule)}
+.tl-label{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-70);padding-top:.2rem;
+}
+.tl-lanes{position:relative;display:grid;gap:4px}
+.tl-lane{position:relative;height:12px}
+.bar{
+  position:absolute;top:0;height:12px;min-width:5px;padding:0;border:0;
+  background:var(--past);border-radius:2px;cursor:pointer;display:block;
+  transition:filter .15s ease,transform .15s ease;
+  transform-origin:left center;
+}
+.bar:hover,.bar:focus-visible{filter:brightness(.62);transform:scaleY(1.35)}
+.bar.is-now{
+  background:linear-gradient(90deg,var(--live) 0%,var(--live) 72%,color-mix(in srgb,var(--live) 22%,transparent) 100%);
+}
+.bar.is-tentative{background:repeating-linear-gradient(135deg,var(--past) 0 4px,var(--paper) 4px 7px);box-shadow:inset 0 0 0 1px var(--past)}
+.mark{
+  position:absolute;top:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;
+  border-radius:50%;background:var(--ink);border:0;padding:0;cursor:pointer;
+  transition:transform .15s ease;
+}
+.mark.is-open{background:var(--paper);box-shadow:inset 0 0 0 1.6px var(--ink-70)}
+.mark:hover,.mark:focus-visible{transform:scale(1.5)}
+.tl-caption{
+  margin-top:1.1rem;padding-top:.85rem;border-top:1px solid var(--rule);
+  min-height:3.2em;font-size:.95rem;color:var(--ink-70);
+}
+.tl-caption strong{color:var(--ink);font-weight:600}
+.tl-caption .cap-when{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;color:var(--ink-45);display:block;margin-top:.15rem}
+.tl-legend{display:flex;flex-wrap:wrap;gap:.45rem 1.3rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;color:var(--ink-45);text-transform:uppercase}
+.tl-legend span{display:inline-flex;align-items:center;gap:.45rem}
+.swatch{width:14px;height:8px;border-radius:2px;background:var(--past);flex:none}
+.swatch.live{background:var(--live)}
+.swatch.dot{width:8px;height:8px;border-radius:50%;background:var(--ink)}
+.swatch.open{width:8px;height:8px;border-radius:50%;background:var(--paper);box-shadow:inset 0 0 0 1.6px var(--ink-70)}
+
+/* ---------- sections ---------- */
+.sec{
+  display:grid;grid-template-columns:8.5rem 1fr;gap:0 1.25rem;
+  border-top:1px solid var(--rule);padding:clamp(2.2rem,5vh,3.4rem) 0;
+}
+.sec:first-of-type{margin-top:clamp(3rem,8vh,5rem)}
+.sec-label{
+  position:sticky;top:1.4rem;align-self:start;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-45);
+}
+.sec-body{min-width:0}
+.item{
+  display:grid;grid-template-columns:1fr auto;gap:.15rem 2rem;
+  padding:.9rem 0;align-items:baseline;
+  border-radius:3px;scroll-margin-top:2rem;
+}
+.item + .item{border-top:1px dotted var(--rule)}
+.item:hover .item-title,.pub:hover .pub-cite{color:var(--live)}
+.item-title,.pub-cite{transition:color .18s ease}
+.item-title{margin:0;font-size:1.0625rem;font-weight:500;line-height:1.4}
+.item-sub{
+  grid-column:1;margin:.15rem 0 0;font-size:.9rem;color:var(--ink-70);
+}
+.item-when{
+  grid-column:2;grid-row:1;font-family:var(--mono);font-size:.72rem;
+  letter-spacing:.04em;color:var(--ink-45);white-space:nowrap;text-align:right;
+}
+.item-when.tentative{border-bottom:1px dashed var(--live);color:var(--live)}
+.role{
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--live);border:1px solid color-mix(in srgb,var(--live) 35%,transparent);
+  border-radius:99px;padding:.12rem .45rem;margin-left:.5rem;white-space:nowrap;
+  vertical-align:.1em;
+}
+.pub{padding:1.1rem 0;scroll-margin-top:2rem;border-radius:3px}
+.pub + .pub{border-top:1px dotted var(--rule)}
+.pub-cite{margin:0;font-size:1.0625rem;line-height:1.5;max-width:var(--measure)}
+.pub-cite b{font-weight:600;box-shadow:inset 0 -.42em 0 color-mix(in srgb,var(--live) 16%,transparent)}
+.pub-meta{
+  margin:.5rem 0 0;display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;color:var(--ink-45);
+}
+.venue{
+  color:var(--ink);border:1px solid var(--rule);border-radius:2px;
+  padding:.14rem .42rem;background:var(--paper-2);text-transform:uppercase;
+}
+.pub-award{
+  background:var(--ink);color:var(--paper);border-radius:2px;
+  padding:.14rem .45rem;text-transform:uppercase;letter-spacing:.08em;
+}
+.pub-link{
+  color:var(--live);text-decoration:none;
+  border:1px solid color-mix(in srgb,var(--live) 30%,transparent);
+  border-radius:2px;padding:.14rem .42rem;text-transform:uppercase;
+  transition:background .15s ease,color .15s ease;
+}
+.pub-link:hover{background:var(--live);color:var(--paper);border-color:var(--live)}
+.flash{animation:flash 1.4s ease-out}
+@keyframes flash{
+  0%,18%{background:color-mix(in srgb,var(--live) 15%,transparent);box-shadow:0 0 0 8px color-mix(in srgb,var(--live) 15%,transparent)}
+  100%{background:transparent;box-shadow:0 0 0 8px transparent}
+}
+
+/* ---------- footer ---------- */
+.foot{
+  border-top:1px solid var(--rule);margin-top:1rem;
+  padding:2.2rem 0 3.5rem;display:flex;flex-wrap:wrap;
+  gap:.6rem 2rem;justify-content:space-between;align-items:baseline;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;color:var(--ink-45);
+  text-transform:uppercase;
+}
+.foot a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+.foot a:hover{color:var(--live);border-bottom-color:var(--live)}
+
+/* ---------- responsive ---------- */
+@media (max-width:780px){
+  .tl-row,.sec{grid-template-columns:1fr;gap:.6rem 0}
+  .tl-label{padding-top:0}
+  .sec-label{position:static;margin-bottom:.4rem}
+  .item{grid-template-columns:1fr}
+  .item-when{grid-column:1;grid-row:auto;text-align:left;margin-top:.3rem}
+  .mark{width:7px;height:7px;margin:-3.5px 0 0 -3.5px}
+  .statement{max-width:none}
+}
+
+/* ---------- motion ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .bar,.mark{animation:grow .5s cubic-bezier(.2,.8,.3,1) backwards;animation-delay:calc(var(--i) * 28ms + 120ms)}
+  @keyframes grow{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
+  .mark{animation-name:pop}
+  @keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+
+  <header class="masthead">
+    <h1 class="name" id="js-name">Heejae Bae</h1>
+    <div class="masthead-meta">
+      <div class="meta-lines" id="js-lines-meta"></div>
+      <a class="meta-email" id="js-email" href="#"></a>
+    </div>
+  </header>
+
+  <section class="tl" aria-labelledby="tl-title">
+    <div class="tl-head">
+      <p class="eyebrow" id="tl-title">Six years, running in parallel</p>
+      <p class="tl-hint">Hover or tap anything below</p>
+    </div>
+    <div class="tl-chart">
+      <div class="tl-grid-lines" id="js-lines" aria-hidden="true"></div>
+      <div class="tl-axis" id="js-axis"></div>
+      <div class="tl-body" id="js-tracks"></div>
+    </div>
+    <div class="tl-caption" id="js-caption" aria-live="polite"></div>
+  </section>
+
+  <div id="js-sections"></div>
+
+</main>
+
+<footer class="foot wrap">
+  <span id="js-foot-left"></span>
+  <span id="js-foot-right"></span>
+</footer>
+
+<noscript>
+  <div class="wrap" style="padding-bottom:3rem">
+    <p>This page needs JavaScript to display the CV content.</p>
+  </div>
+</noscript>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════
+   ★★★ 여기만 고치면 사이트 전체가 바뀝니다 ★★★
+
+   - 큰따옴표(" ") 안의 글자만 바꾸세요.
+   - 줄 끝의 쉼표(,)와 중괄호({ })는 절대 지우지 마세요.
+   - start / end 는 그래프(막대) 위치 계산용입니다. "2025-03" = 2025년 3월.
+     아직 진행 중이면 end: "now" 라고 쓰세요.
+   - when 은 화면에 실제로 보이는 날짜 글자입니다. 자유롭게 쓰세요.
+   - 항목을 추가하려면 { ... }, 한 덩어리를 통째로 복사해서 붙여넣으세요.
+   ══════════════════════════════════════════════════════════════════════ */
+
+const CV = {
+
+  /* ── 기본 정보 ────────────────────────────────────────────────── */
+  name: "Heejae Bae",
+
+  // 이름 아래 줄들. 줄을 더 넣고 싶으면 "..." 을 쉼표로 이어 쓰세요.
+  metaLines: [
+    "Ph.D. Candidate, Industrial Design, KAIST",
+    "Creative Interaction Design Lab"
+  ],
+
+  email: "hj_bae@kaist.ac.kr",
+
+  // 구글 스칼라 / 링크드인 등이 생기면 아래에 추가하세요.
+  // 예: { label: "Google Scholar", url: "https://scholar.google.com/..." },
+  links: [],
+
+  /* ── 학력 ─────────────────────────────────────────────────────── */
+  education: [
+    { title:"Ph.D. Candidate, Industrial Design", sub:"KAIST", when:"Aug 2024 – Present", start:"2024-08", end:"now" },
+    { title:"M.S. Industrial Design", sub:"KAIST", when:"Aug 2022 – Aug 2024", start:"2022-08", end:"2024-08" },
+    { title:"B.S. Industrial Design", sub:"KAIST · Minor in Industrial and Systems Engineering", when:"Graduated Aug 2022", start:"2019-03", end:"2022-08" }
+  ],
+
+  /* ── 산학 협력 프로젝트 + 실무 경험 ───────────────────────────── */
+  practice: [
+    { title:"UX design for Maritime Navigation Assistance Systems", sub:"Samsung Heavy Industries",
+      /* ★ 날짜를 몰라서 임시로 넣었습니다. 실제 기간으로 고쳐주세요 ★ */
+      when:"2025 – Present", tentative:true, start:"2025-06", end:"now" },
+
+    { title:"UI/UX design for a financial investment service", sub:"NH Investment & Securities", role:"Project Leader",
+      when:"Jan 2024 – May 2024", start:"2024-01", end:"2024-05" },
+
+    { title:"Confidential project", sub:"Samsung",
+      when:"Dec 2023 – Apr 2024", start:"2023-12", end:"2024-04" },
+
+    { title:"Confidential project", sub:"KEB Hana Bank",
+      when:"Apr 2023 – Jan 2024", start:"2023-04", end:"2024-01" },
+
+    { title:"UI/UX design for a financial investment service", sub:"NH Investment & Securities", role:"Project Leader",
+      when:"Jan 2023 – May 2023", start:"2023-01", end:"2023-05" },
+
+    { title:"UX design for a sleep hygiene management service", sub:"ASLEEP",
+      when:"Sep 2022 – May 2023", start:"2022-09", end:"2023-05" },
+
+    { title:"Product Manager", sub:"Big Picture Lab",
+      when:"Jan 2022 – Aug 2022", start:"2022-01", end:"2022-08" },
+
+    { title:"UI/UX Designer", sub:"Big Picture Lab",
+      when:"Oct 2021 – Dec 2021", start:"2021-10", end:"2021-12" },
+
+    { title:"Product Management Intern", sub:"VOYAGER X",
+      when:"Apr 2021 – Aug 2021", start:"2021-04", end:"2021-08" }
+  ],
+
+  /* ── 강의 ─────────────────────────────────────────────────────── */
+  teaching: [
+    { title:"UX Design", sub:"PaiChai University", role:"Instructor",
+      when:"Mar 2026 – Present", start:"2026-03", end:"now" },
+    { title:"User Centered Design Methodology", sub:"KAIST", role:"Teaching Assistant",
+      when:"Mar 2025 – Aug 2025", start:"2025-03", end:"2025-08" },
+    { title:"Moving Image Design", sub:"KAIST", role:"Teaching Assistant",
+      when:"Mar 2023 – Aug 2023", start:"2023-03", end:"2023-08" }
+  ],
+
+  /* ── 리더십 ───────────────────────────────────────────────────── */
+  leadership: [
+    { title:"Student Representative, Graduate Program in Industrial Design", sub:"KAIST",
+      when:"Sep 2025 – Present", start:"2025-09", end:"now" },
+    { title:"Student Head", sub:"Creative Interaction × Design Lab, KAIST",
+      when:"Mar 2025 – Present", start:"2025-03", end:"now" }
+  ],
+
+  /* ── 논문 ─────────────────────────────────────────────────────
+     cite 안의 <b>Bae, H.</b> 는 본인 이름을 굵게 표시합니다.
+     date 는 그래프의 점(●) 위치입니다. 학회 개최 월로 대략 맞춰뒀습니다.
+
+     ★ 링크 거는 법 ★
+       url: "https://doi.org/..."   → 'Paper ↗' 버튼이 생깁니다 (논문 페이지/DOI)
+       pdf: "https://..."           → 'PDF ↗' 버튼이 생깁니다
+       site:"https://..."           → 'Project ↗' 버튼이 생깁니다 (프로젝트 웹페이지)
+       award:"Honorable Mention"    → 검은색 수상 배지가 생깁니다
+     필요 없는 줄은 "" 로 비워두면 버튼이 안 나옵니다.                          */
+  publications: [
+    { cite:"Choi, J., Hwang, I., Park, S., Cho, H., <b>Bae, H.</b>, & Kang, Y. (2026). SoTA: An Interactive Art Exhibition for Public AI Engagement. <i>Proceedings of the 2026 Designing Interactive Systems Conference</i>, 4156–4180.",
+      venue:"DIS 2026", date:"2026-06", award:"Honorable Mention",
+      url:"https://doi.org/10.1145/3800645.3812889", pdf:"", site:"" },
+
+    { cite:"<b>Bae, H.</b>, Kwak, D., & Lim, Y. (2025). Exploring Design Strategies for Generative AI to Support Narrative Identity Construction. <i>IASDR</i>.",
+      venue:"IASDR 2025", date:"2025-10", award:"",
+      url:"https://doi.org/10.21606/iasdr.2025.829", pdf:"", site:"" },
+
+    { cite:"<b>Bae, H.</b>, Kim, N., Lee, S., & Lee, T. Y. (2025). Bridging Bond Beyond Life: Designing VR Memorial Space with Stakeholder Collaboration via Research through Design. <i>Extended Abstracts of the CHI Conference on Human Factors in Computing Systems</i>, 1–7.",
+      venue:"CHI EA 2025", date:"2025-04", award:"",
+      url:"https://doi.org/10.1145/3706599.3719871", pdf:"", site:"" },
+
+    { cite:"Kwak, D., <b>Bae, H.</b>, & Lim, Y. K. (2023). Design considerations for supporting social interaction in algorithmic social media feed. <i>IASDR</i>.",
+      venue:"IASDR 2023", date:"2023-10", award:"",
+      url:"https://doi.org/10.21606/iasdr.2023.536", pdf:"", site:"" }
+  ],
+
+  /* ── 수상 ─────────────────────────────────────────────────────── */
+  awards: [
+    { title:"Honorable Mention Award", sub:"DIS 2026 · SoTA: An Interactive Art Exhibition for Public AI Engagement", when:"2026", date:"2026-06" },
+    { title:"iF Design Award, Winner — Service Design", sub:"DEAR. VR Remembrance Service", when:"2024", date:"2024-04" },
+    { title:"KAIST Character-Based Scholarship", sub:"KAIST", when:"2025", date:"2025-03" }
+  ],
+
+  /* ── 특허 / 저작권 ────────────────────────────────────────────── */
+  patents: [
+    { title:"Vision-Based Large Language Model Multi-Agent Framework for Discovering Latent User Needs",
+      sub:"Lim, Y., <b>Bae, H.</b>, Park, S., & Park, S. · Korea Patent Application No. 10-2025-0183209",
+      when:"2025", date:"2025-12" },
+    { title:"Vision-Based Large Language Model Multi-Agent Framework for Discovering Latent User Needs",
+      sub:"Lim, Y., <b>Bae, H.</b>, Park, S., & Park, S. · Korea Copyright Registration No. C-2025-057351",
+      when:"2025", date:"2025-11" }
+  ],
+
+  /* 그래프의 가로축 범위 (연도) */
+  chartFrom: 2021,
+  chartTo:   2027
+};
+
+/* ══════════════════════════════════════════════════════════════════════
+   아래는 화면을 그리는 코드입니다. 건드리지 않아도 됩니다.
+   ══════════════════════════════════════════════════════════════════════ */
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/&(?![a-z#]+;)/g,"&amp;");
+  const T0 = CV.chartFrom, T1 = CV.chartTo, SPAN = T1 - T0;
+  const d = new Date();
+  const NOW = Math.min(d.getFullYear() + d.getMonth()/12, T1 - 0.02);
+
+  const val = (s) => {
+    if (s === "now") return NOW;
+    const [y,m] = String(s).split("-").map(Number);
+    return y + ((m||1)-1)/12;
+  };
+  const pct = (v) => ((Math.max(T0, Math.min(T1, v)) - T0) / SPAN) * 100;
+
+  /* ---- masthead ---- */
+  $("js-name").textContent = CV.name;
+  $("js-email").textContent = CV.email;
+  $("js-email").setAttribute("href", "mailto:" + CV.email);
+
+  let metaHTML = CV.metaLines.map(l => `<span>${esc(l)}</span>`).join("");
+  if (CV.links.length)
+    metaHTML += `<span class="masthead-links">` +
+      CV.links.map(l => `<a href="${l.url}" rel="me" target="_blank">${esc(l.label)} ↗</a>`).join("") +
+      `</span>`;
+  $("js-lines-meta").innerHTML = metaHTML;
+
+  $("js-foot-left").innerHTML = `${esc(CV.name)} — <a href="mailto:${CV.email}">${esc(CV.email)}</a>`;
+  $("js-foot-right").textContent = "Last updated " +
+    d.toLocaleDateString("en-US",{month:"long",year:"numeric"});
+
+  /* ---- axis ---- */
+  let lines = "", axis = "";
+  for (let y = T0; y <= T1; y++) lines += `<div class="tl-vline" style="left:${pct(y)}%"></div>`;
+  lines += `<div class="tl-today" style="left:${pct(NOW)}%"></div>`;
+  for (let y = T0; y < T1; y++)
+    axis += `<div class="tl-year" style="left:${pct(y)}%">&nbsp;’${String(y).slice(2)}</div>`;
+  $("js-lines").innerHTML = lines;
+  $("js-axis").innerHTML = axis;
+
+  /* ---- lane packing: overlapping items get their own row ---- */
+  function pack(items){
+    const lanes = [];
+    items.slice().sort((a,b) => val(a.start) - val(b.start)).forEach(it => {
+      const s = val(it.start), e = val(it.end);
+      let lane = lanes.find(L => L.end <= s + 0.001);
+      if (!lane){ lane = { end:-99, items:[] }; lanes.push(lane); }
+      lane.items.push(it); lane.end = e;
+    });
+    return lanes;
+  }
+
+  let idx = 0;
+  const captions = {};
+
+  function barsHTML(items, prefix){
+    return pack(items).map(lane =>
+      `<div class="tl-lane">` + lane.items.map(it => {
+        const key = prefix + "-" + CV[prefix].indexOf(it);
+        captions[key] = it;
+        const left = pct(val(it.start)), w = Math.max(pct(val(it.end)) - left, 0.45);
+        const cls = "bar" + (it.end === "now" ? " is-now" : "") + (it.tentative ? " is-tentative" : "");
+        return `<button class="${cls}" style="left:${left}%;width:${w}%;--i:${idx++}"
+                 data-key="${key}" aria-label="${esc(it.title)}, ${esc(it.when)}"></button>`;
+      }).join("") + `</div>`
+    ).join("");
+  }
+
+  function marksHTML(items, prefix, open){
+    return `<div class="tl-lane">` + items.map(it => {
+      const key = prefix + "-" + CV[prefix].indexOf(it);
+      captions[key] = it;
+      return `<button class="mark${open ? " is-open" : ""}" style="left:${pct(val(it.date))}%;--i:${idx++}"
+               data-key="${key}" aria-label="${esc(it.venue || it.title)}"></button>`;
+    }).join("") + `</div>`;
+  }
+
+  /* ---- tracks ---- */
+  const rows = [
+    { label:"Publications", html: marksHTML(CV.publications,"publications",false) },
+    { label:"Awards & IP",  html: "" },
+    { label:"Education",    html: barsHTML(CV.education,"education") },
+    { label:"Practice",     html: barsHTML(CV.practice,"practice") },
+    { label:"Teaching",     html: barsHTML(CV.teaching,"teaching") },
+    { label:"Leadership",   html: barsHTML(CV.leadership,"leadership") }
+  ];
+
+  // Awards & IP row: rebuild so patents keep their own keys
+  rows[1].html = `<div class="tl-lane">` +
+    CV.awards.map((it,i) => {
+      captions["awards-"+i] = it;
+      return `<button class="mark is-open" style="left:${pct(val(it.date))}%;--i:${idx++}" data-key="awards-${i}" aria-label="${esc(it.title)}"></button>`;
+    }).join("") +
+    CV.patents.map((it,i) => {
+      captions["patents-"+i] = it;
+      return `<button class="mark is-open" style="left:${pct(val(it.date))}%;--i:${idx++}" data-key="patents-${i}" aria-label="${esc(it.title)}"></button>`;
+    }).join("") + `</div>`;
+
+  $("js-tracks").innerHTML = rows.map(r =>
+    `<div class="tl-row"><div class="tl-label">${r.label}</div><div class="tl-lanes">${r.html}</div></div>`
+  ).join("");
+
+  /* ---- caption ---- */
+  const DEFAULT_CAPTION =
+    `<div class="tl-legend">
+       <span><i class="swatch"></i>Completed</span>
+       <span><i class="swatch live"></i>Ongoing</span>
+       <span><i class="swatch dot"></i>Publication</span>
+       <span><i class="swatch open"></i>Award or patent</span>
+     </div>`;
+  const cap = $("js-caption");
+  cap.innerHTML = DEFAULT_CAPTION;
+
+  function show(key){
+    const it = captions[key]; if (!it) return;
+    const title = it.cite || `<strong>${it.title}</strong>${it.sub ? " — " + it.sub : ""}`;
+    cap.innerHTML = `<div>${title}<span class="cap-when">${it.when || it.venue || ""}${it.note ? " · " + it.note : ""}</span></div>`;
+  }
+
+  $("js-tracks").addEventListener("mouseover", e => {
+    const b = e.target.closest("[data-key]"); if (b) show(b.dataset.key);
+  });
+  $("js-tracks").addEventListener("focusin", e => {
+    const b = e.target.closest("[data-key]"); if (b) show(b.dataset.key);
+  });
+  $("js-tracks").addEventListener("mouseleave", () => { cap.innerHTML = DEFAULT_CAPTION; });
+  $("js-tracks").addEventListener("click", e => {
+    const b = e.target.closest("[data-key]"); if (!b) return;
+    show(b.dataset.key);
+    const target = document.getElementById("e-" + b.dataset.key);
+    if (target){
+      target.scrollIntoView({ behavior:"smooth", block:"center" });
+      target.classList.remove("flash"); void target.offsetWidth; target.classList.add("flash");
+    }
+  });
+
+  /* ---- sections ---- */
+  function itemHTML(it, key){
+    return `<div class="item" id="e-${key}">
+      <p class="item-title">${it.title}${it.role ? `<span class="role">${it.role}</span>` : ""}</p>
+      <span class="item-when${it.tentative ? " tentative" : ""}">${it.when || ""}</span>
+      ${it.sub ? `<p class="item-sub">${it.sub}</p>` : ""}
+    </div>`;
+  }
+
+  function section(label, body){
+    return `<section class="sec"><div class="sec-label">${label}</div><div class="sec-body">${body}</div></section>`;
+  }
+
+  const linkBtn = (url, label) =>
+    url ? `<a class="pub-link" href="${url}" target="_blank" rel="noopener">${label} ↗</a>` : "";
+
+  const pubs = CV.publications.map((p,i) =>
+    `<article class="pub" id="e-publications-${i}">
+       <p class="pub-cite">${p.cite}</p>
+       <p class="pub-meta"><span class="venue">${p.venue}</span>${
+         p.award ? `<span class="pub-award">★ ${p.award}</span>` : ""}${
+         linkBtn(p.url,"Paper")}${linkBtn(p.pdf,"PDF")}${linkBtn(p.site,"Project")}</p>
+     </article>`).join("");
+
+  $("js-sections").innerHTML =
+      section("Publications", pubs)
+    + section("Practice &amp; Collaboration", CV.practice.map((x,i) => itemHTML(x,"practice-"+i)).join(""))
+    + section("Teaching",    CV.teaching.map((x,i) => itemHTML(x,"teaching-"+i)).join(""))
+    + section("Leadership",  CV.leadership.map((x,i) => itemHTML(x,"leadership-"+i)).join(""))
+    + section("Education",   CV.education.map((x,i) => itemHTML(x,"education-"+i)).join(""))
+    + section("Awards",      CV.awards.map((x,i) => itemHTML(x,"awards-"+i)).join(""))
+    + section("Patents &amp; Copyright", CV.patents.map((x,i) => itemHTML(x,"patents-"+i)).join(""));
+})();
+</script>
+</body>
+</html>
