@@ -144,6 +144,12 @@ a{color:inherit}
   text-transform:uppercase;color:var(--ink-45);
 }
 .sec-body{min-width:0}
+.sec-note{
+  margin:0 0 1.2rem;padding:.75rem .95rem;
+  background:var(--paper-2);border-left:2px solid var(--ink-45);
+  font-size:.92rem;font-style:italic;color:var(--ink-70);
+  max-width:var(--measure);border-radius:0 2px 2px 0;
+}
 .item{
   display:grid;grid-template-columns:1fr auto;gap:.15rem 2rem;
   padding:.9rem 0;align-items:baseline;
@@ -303,27 +309,34 @@ const CV = {
     { title:"B.S. Industrial Design", sub:"KAIST · Minor in Industrial and Systems Engineering", when:"Graduated Aug 2022", start:"2019-03", end:"2022-08" }
   ],
 
-  /* ── 산학 협력 프로젝트 + 실무 경험 ───────────────────────────── */
-  practice: [
-    { title:"UX design for Maritime Navigation Assistance Systems", sub:"Samsung Heavy Industries",
+  /* ── 산학 협력 프로젝트 ───────────────────────────────────────
+     보안 각서 때문에 프로젝트 제목은 넣지 않고 기관명만 씁니다.
+     섹션 맨 위에 나오는 안내문은 바로 아래 collaborationNote 에서 고치세요. */
+  collaborationNote: "All projects were conducted at the Creative Interaction Design Lab, KAIST. Project titles, topics, and outcomes are withheld under confidentiality agreements with the partner organizations; further detail can be provided upon request where permitted.",
+
+  collaboration: [
+    { title:"Samsung Heavy Industries",
       /* ★ 날짜를 몰라서 임시로 넣었습니다. 실제 기간으로 고쳐주세요 ★ */
       when:"2025 – Present", tentative:true, start:"2025-06", end:"now" },
 
-    { title:"UI/UX design for a financial investment service", sub:"NH Investment & Securities", role:"Project Leader",
+    { title:"NH Investment & Securities", role:"Project Leader",
       when:"Jan 2024 – May 2024", start:"2024-01", end:"2024-05" },
 
-    { title:"Confidential project", sub:"Samsung",
+    { title:"Samsung",
       when:"Dec 2023 – Apr 2024", start:"2023-12", end:"2024-04" },
 
-    { title:"Confidential project", sub:"KEB Hana Bank",
+    { title:"KEB Hana Bank",
       when:"Apr 2023 – Jan 2024", start:"2023-04", end:"2024-01" },
 
-    { title:"UI/UX design for a financial investment service", sub:"NH Investment & Securities", role:"Project Leader",
+    { title:"NH Investment & Securities", role:"Project Leader",
       when:"Jan 2023 – May 2023", start:"2023-01", end:"2023-05" },
 
-    { title:"UX design for a sleep hygiene management service", sub:"ASLEEP",
-      when:"Sep 2022 – May 2023", start:"2022-09", end:"2023-05" },
+    { title:"ASLEEP",
+      when:"Sep 2022 – May 2023", start:"2022-09", end:"2023-05" }
+  ],
 
+  /* ── 실무 경험 ────────────────────────────────────────────────── */
+  experience: [
     { title:"Product Manager", sub:"Big Picture Lab",
       when:"Jan 2022 – Aug 2022", start:"2022-01", end:"2022-08" },
 
@@ -483,12 +496,13 @@ const CV = {
 
   /* ---- tracks ---- */
   const rows = [
-    { label:"Publications", html: marksHTML(CV.publications,"publications",false) },
-    { label:"Awards & IP",  html: "" },
-    { label:"Education",    html: barsHTML(CV.education,"education") },
-    { label:"Practice",     html: barsHTML(CV.practice,"practice") },
-    { label:"Teaching",     html: barsHTML(CV.teaching,"teaching") },
-    { label:"Leadership",   html: barsHTML(CV.leadership,"leadership") }
+    { label:"Publications",  html: marksHTML(CV.publications,"publications",false) },
+    { label:"Awards & IP",   html: "" },
+    { label:"Education",     html: barsHTML(CV.education,"education") },
+    { label:"Collaboration", html: barsHTML(CV.collaboration,"collaboration") },
+    { label:"Experience",    html: barsHTML(CV.experience,"experience") },
+    { label:"Teaching",      html: barsHTML(CV.teaching,"teaching") },
+    { label:"Leadership",    html: barsHTML(CV.leadership,"leadership") }
   ];
 
   // Awards & IP row: rebuild so patents keep their own keys
@@ -549,8 +563,9 @@ const CV = {
     </div>`;
   }
 
-  function section(label, body){
-    return `<section class="sec"><div class="sec-label">${label}</div><div class="sec-body">${body}</div></section>`;
+  function section(label, body, note){
+    return `<section class="sec"><div class="sec-label">${label}</div><div class="sec-body">${
+      note ? `<p class="sec-note">${note}</p>` : ""}${body}</div></section>`;
   }
 
   const linkBtn = (url, label) =>
@@ -566,7 +581,10 @@ const CV = {
 
   $("js-sections").innerHTML =
       section("Publications", pubs)
-    + section("Practice &amp; Collaboration", CV.practice.map((x,i) => itemHTML(x,"practice-"+i)).join(""))
+    + section("Industry–Academia Collaboration",
+        CV.collaboration.map((x,i) => itemHTML(x,"collaboration-"+i)).join(""),
+        CV.collaborationNote)
+    + section("Professional Experience", CV.experience.map((x,i) => itemHTML(x,"experience-"+i)).join(""))
     + section("Teaching",    CV.teaching.map((x,i) => itemHTML(x,"teaching-"+i)).join(""))
     + section("Leadership",  CV.leadership.map((x,i) => itemHTML(x,"leadership-"+i)).join(""))
     + section("Education",   CV.education.map((x,i) => itemHTML(x,"education-"+i)).join(""))
